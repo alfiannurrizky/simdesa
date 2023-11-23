@@ -175,7 +175,6 @@
     }
 
     function tampilkan_grafik(tipe_grafik) {
-        // hapus dulu isi dari div chart
         clearCanvas("chart_lahir");
         clearCanvas("chart_wafat");
         clearCanvas("chart_keluar");
@@ -356,7 +355,6 @@
                 }, function(hasil) {
                     response($.map(hasil, function(item) {
                         return {
-                            // label untuk pilihan
                             label: item.nama,
                             value: item.nama,
                             id: item.no_ktp
@@ -371,27 +369,44 @@
         })
     }
 
-    $("#form_keluarga").submit(function() {
-        var inputan = $(".isian");
-        var inputs = $(this).serializeArray();
-        var url = $(this).attr('action');
+    var spanClicked = false;
 
-        if (inputs.length >= 7) {
-            var kepala_klg = $(".anggota_klg:first").val();
-            $.post(url, {
-                data: inputs,
-                kepala_keluarga: kepala_klg
-            }, function(data) {
-                if (data == 1) {
-                    window.location.href = "daftar_keluarga";
-                } else {
-                    window.location.href = "daftar_keluarga";
-                }
-            })
+    $('#addMemberButton').click(function() {
+        spanClicked = true;
+        $('#button').prop('disabled', false);
+    });
+
+    $("#form_keluarga").submit(function() {
+        if (!spanClicked) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Harap tambahkan anggota keluarga terlebih dahulu!',
+            });
+            event.preventDefault();
         } else {
-            $("span.input-link").click();
+
+
+            var inputan = $(".isian");
+            var inputs = $(this).serializeArray();
+            var url = $(this).attr('action');
+
+            if (inputs.length >= 7) {
+                var kepala_klg = $(".anggota_klg:first").val();
+                $.post(url, {
+                    data: inputs,
+                    kepala_keluarga: kepala_klg
+                }, function(data) {
+                    if (data == 1) {
+                        window.location.href = "daftar_keluarga";
+                    } else {
+                        window.location.href = "daftar_keluarga";
+                    }
+                })
+            } else {
+                $("span.input-link").click();
+            }
         }
-        // return false;
     })
 
     $("span.input-link").click(function() {

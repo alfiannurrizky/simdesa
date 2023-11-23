@@ -120,11 +120,8 @@ $jumlah_bulan_lalu = $jumlah_bulan_lalu_lk + $jumlah_bulan_lalu_pr;
                 <div class="form-group">
                   <label for="jenisGrafik">Pilih jenis grafik</label>
                   <select onchange="rubah_grafik(this.value)" class="form-control" id="jenisGrafik">
-                    <option>Bar</option>
                     <option value="horizontalBars">Horizontal Bar</option>
-                    <option>Pie</option>
                     <option value="explodedPie" selected>Exploded Pie</option>
-                    <option>Ring</option>
                   </select>
                 </div>
 

@@ -175,7 +175,7 @@
                             </div>
                             <div class="form-group">
                               <label class="small">Tambahkan Anggota keluarga</label> <br>
-                              <span style="cursor: pointer;" class="input-link"><img src="../img/edit_add.png" /><span style="vertical-align:middle;padding:3px;margin-left:3px;font-size:70%;font-weight:bold">( Data pertama adalah kepala keluarga )</span></span>
+                              <span id="addMemberButton" style="cursor: pointer;" class="input-link"><img src="../img/edit_add.png" /><span style="vertical-align:middle;padding:3px;margin-left:3px;font-size:70%;font-weight:bold">( Data pertama adalah kepala keluarga )</span></span>
                             </div>
                           </div>
                           <div class="card-footer">
