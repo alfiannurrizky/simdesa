@@ -1,5 +1,5 @@
 # Aplikasi Web Sistem Informasi Desa
-
+Aplikasi web ini adalah modifikasi dari [repositori simdesa milik pandigresik](https://github.com/pandigresik/simdesa).
 Aplikasi Web Sistem Informasi Desa adalah platform yang dirancang untuk memfasilitasi manajemen data dan informasi di tingkat desa. Aplikasi ini menyediakan berbagai fitur untuk membantu administrasi dan koordinasi di lingkungan desa.
 
 ## Deskripsi
