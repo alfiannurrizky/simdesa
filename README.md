@@ -40,10 +40,14 @@ Berikut adalah langkah-langkah untuk menginstal aplikasi ini:
 
 1. Masuk kedalam folder xampp/htdocs anda:
 
-2. Lalu, Clone repositori nya:
+2. Lalu, Clone repositori atau unduh sebagai ZIP:
 
-   ```bash
-   git clone https://github.com/alfiannurrizky/simdesa.git
+   - **Clone menggunakan Git:**
+     ```bash
+     git clone https://github.com/alfiannurrizky/simdesa.git
+     ```
+   - **Unduh sebagai ZIP:**
+     [Unduh ZIP](https://github.com/alfiannurrizky/simdesa/archive/refs/heads/main.zip)
 
 3. Lalu,buka database mysql dan buat database dengan nama "simdes":
 
@@ -59,3 +63,5 @@ Berikut adalah langkah-langkah untuk menginstal aplikasi ini:
 6. Dan anda telah berhasil membuat tabel tabel yang diperlukan, silahkan cek di database simdes anda dan lihat tabel tabel nya sudah terbuat otomatis.
 
 7. Jika anda ingin mendemokan aplikasi nya silahkan isi kolom username dan password di tabel users, dengan username = admin dan password = 827ccb0eea8a706c4c34a16891f84e7b. Lalu anda coba jalankan aplikasi nya dengan membuka browser dan ketikan di url seperti ini "localhost/simdesa" , nanti akan menampilkan halaman login dan silahkan masukan username = admin dan password = 12345.
+
+8. Dan terakhir jangan lupa untuk menjalankan xampp nya, lalu start apache dan start mysql nya, Good Luck.
