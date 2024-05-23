@@ -19,25 +19,33 @@ $j_mutasi = $_POST['jenis_mutasi'];
 $tanggal = $_POST['tanggal'];
 $keterangan = $_POST['keterangan'];
 
-if($j_mutasi == 'masuk' || $j_mutasi == 'lahir') {
-    $sql = "INSERT INTO warga (no_ktp, nama, agama, t_lahir, tgl_lahir, j_kel, gol_darah, w_negara, pendidikan, pekerjaan, s_nikah, status) VALUES ('$no_ktp', '$nama ', '$agama', '$t_lahir', '$tgl_lahir', '$j_kel', '$gol_darah', '$w_negara', '$pendidikan', '$pekerjaan', '$s_nikah', '1')";
-    $sql_exe = mysqli_query($conn , $sql);
-
-    if($sql_exe){
-        mysqli_query($conn,"INSERT INTO mutasi_warga (id_warga,jenis_mutasi,tanggal,keterangan) values ('".$no_ktp."','".$j_mutasi."','".$tanggal."','".$keterangan."')");
-        $status = 1;
-
+if(is_numeric($no_ktp)) {
+    if($j_mutasi == 'masuk' || $j_mutasi == 'lahir') {
+        $sql = "INSERT INTO warga (no_ktp, nama, agama, t_lahir, tgl_lahir, j_kel, gol_darah, w_negara, pendidikan, pekerjaan, s_nikah, status) VALUES ('$no_ktp', '$nama ', '$agama', '$t_lahir', '$tgl_lahir', '$j_kel', '$gol_darah', '$w_negara', '$pendidikan', '$pekerjaan', '$s_nikah', '1')";
+        $sql_exe = mysqli_query($conn , $sql);
+    
+        if($sql_exe){
+            mysqli_query($conn,"INSERT INTO mutasi_warga (id_warga,jenis_mutasi,tanggal,keterangan) values ('".$no_ktp."','".$j_mutasi."','".$tanggal."','".$keterangan."')");
+            $status = 1;
+    
+            $_SESSION['status'] = 'Berhasil Membuat Mutasi Penduduk!';
+            echo '<script>window.location="../daftar_mutasi"</script>';
+        }
+    } else {
+        $sql = "INSERT INTO mutasi_warga (id_warga,jenis_mutasi,tanggal,keterangan) values ('".$no_ktp."','".$j_mutasi."','".$tanggal."','".$keterangan."')";
+        $sql_exe = mysqli_query($conn,$sql);
+        if($sql_exe){
+        mysqli_query($conn,"UPDATE warga set status='".$status."' where no_ktp='".$no_ktp."'");
+    
         $_SESSION['status'] = 'Berhasil Membuat Mutasi Penduduk!';
         echo '<script>window.location="../daftar_mutasi"</script>';
+        }
     }
 } else {
-    $sql = "INSERT INTO mutasi_warga (id_warga,jenis_mutasi,tanggal,keterangan) values ('".$no_ktp."','".$j_mutasi."','".$tanggal."','".$keterangan."')";
-    $sql_exe = mysqli_query($conn,$sql);
-    if($sql_exe){
-	mysqli_query($conn,"UPDATE warga set status='".$status."' where no_ktp='".$no_ktp."'");
-
-    $_SESSION['status'] = 'Berhasil Membuat Mutasi Penduduk!';
+    $_SESSION['status_gagal'] = 'Mohon input no ktp dengan angka!';
+		
     echo '<script>window.location="../daftar_mutasi"</script>';
-	}
 }
+
+
     

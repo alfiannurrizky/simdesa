@@ -353,10 +353,14 @@
                 $.post("data_warga.php", {
                     data: request.term
                 }, function(hasil) {
+                    alert(hasil);
                     response($.map(hasil, function(item) {
+                        alert(item);
                         return {
                             label: item.nama,
                             value: item.nama,
+                            label: item.hubungan,
+                            value: item.hubungan,
                             id: item.no_ktp
                         }
                     }))
@@ -390,12 +394,29 @@
             var inputan = $(".isian");
             var inputs = $(this).serializeArray();
             var url = $(this).attr('action');
+            var hubunganValues = [];
+
+            $(".hub").each(function() {
+                hubunganValues.push($(this).val());
+            });
 
             if (inputs.length >= 7) {
                 var kepala_klg = $(".anggota_klg:first").val();
+                var no_ktp = $("#ktp").val();
+
+                if (!/^\d+$/.test(no_ktp)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No KTP harus berupa angka!',
+                    });
+                    event.preventDefault();
+                    return;
+                }
                 $.post(url, {
                     data: inputs,
-                    kepala_keluarga: kepala_klg
+                    kepala_keluarga: kepala_klg,
+                    hubungan:hubunganValues,
                 }, function(data) {
                     if (data == 1) {
                         window.location.href = "daftar_keluarga";
@@ -413,13 +434,19 @@
 
         var input_baru = '<div class="form-row">';
 
-        input_baru += '<div class="form-group col-md-6">';
+        input_baru += '<div class="form-group col-md-4">';
         input_baru += '<label for="nama" class="control-label"></label>';
-        input_baru += '<input type="text" placeholder="Ketik Nama" class="form-control isian anggota_klg" autocomplete="off" onfocus="lengkapi(this)" required/>';
+        input_baru += '<input type="text" placeholder="Ketik Nama" class="form-control isian anggota_klg" autocomplete="off" onfocus="lengkapi(this)"/>';
         input_baru += '</div>';
-        input_baru += '<div class="form-group col-md-6">';
+
+        input_baru += '<div class="form-group col-md-4">';
         input_baru += '<label for="kepala_keluarga" class="control-label"></label>';
-        input_baru += '<input type="text" name="kepala_keluarga" placeholder="No KTP" class="form-control isian" autocomplete="off" required />';
+        input_baru += '<input type="text" name="kepala_keluarga" placeholder="No KTP" id="ktp" class="form-control isian" autocomplete="off" required />';
+        input_baru += '</div>';
+
+        input_baru += '<div class="form-group col-md-4">';
+        input_baru += '<label for="hubungan" class="control-label"></label>';
+        input_baru += '<input type="text" name="hubungan" placeholder="Hubungan" class="form-control isian hub" autocomplete="off" required />';
         input_baru += '</div>';
 
         input_baru += '</div>';

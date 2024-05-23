@@ -14,8 +14,15 @@ if (isset($_GET['nama'])) {
     $nama_surat = "";
 }
 
+if($jenis_surat == 'STM') {
+    $det = 'Tidak';
+}
+
 $tahun = date("Y");
-$nomer_surat = $j_surat[$jenis_surat] . "/" . $nomer_terakhir . "/" . $desa["kode"] . "/" . $tahun;
+$bulan = date("m");
+
+$nomer_surat = $j_surat[$jenis_surat] . "/" . $nomer_terakhir . "/" . 'Ds.ciakar' . "/" . $bulan . "/" . $tahun;
+
 // handle tanda tangan yang bersangkutan
 if ($jenis_surat == "SK") {
     $ybs = "style='display:block'";
@@ -59,14 +66,8 @@ if ($jenis_surat == "SKA") {
                             <input type="text" class="form-control" placeholder="Tanggal mulai pindah" name="tgl_pindah" id="tgl_pindah" required>
                         </div>
                         <div class="form-group">
-                            <label for="tgl_pindah">Pengikut</label>
-                        </div>
-                        <input type="text" name="jum_pengikut" id="jum_pengikut" class="manual tampil" value="0"/>
-                        <span style="cursor: pointer"; onclick="tambah_pengikut(this)"><img src="../img/edit_add.png"/><span style="vertical-align:middle;margin-left:3px;font-size:70%;font-weight:bold">( Tambahkan pengikut )</span></span>
-                        <div class="table" >
-                        <table id="tab_pengikut">
-                        <tr><th>No</th><th>Nama</th><th>L/P</th><th>Umur</th><th>Hubungan</th><th>Status</th></tr>
-                        </table>
+                            <label for="jumlah_pengikut">Pengikut</label>
+                            <input type="text" class="form-control" placeholder="Jumlah Pengikut" name="jum_pengikut" required>
                         </div>
 					';
     $mengetahui = "";
@@ -86,7 +87,7 @@ if ($jenis_surat == "SKA") {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Surat Keterangan <span id="nama_surat"><?php echo $nama_surat; ?></span></h1>
+                    <h1>Surat Keterangan <?= $det ?> <span id="nama_surat"><?php echo $nama_surat; ?></span></h1>
                     <div class="breadcrumbs">Nomer : <?php echo $nomer_surat; ?></div>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
@@ -149,12 +150,15 @@ if ($jenis_surat == "SKA") {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="kwg">Kewarganegaraan</label>
-                                    <input type="text" class="form-control isian tampil" placeholder="Kewarganegaraan" name="w_negara" id="kwg" required>
+                                    <label for="w_negara">Warga Negara</label>
+                                    <select class="form-control" aria-label="Default select example" name="w_negara" required>
+                                        <option selected>Indonesia</option>
+                                        <option value="1">WNA</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="pendidikan">Pendidikan</label>
-                                    <input type="text" class="form-control isian tampil" placeholder="Pendidikan Terakhir" name="pendidikan" id="pendidikan" required> 
+                                    <input type="text" class="form-control isian tampil" placeholder="Pendidikan Terakhir" name="pendidikan" id="pendidikan" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="agama">Agama</label>
@@ -215,7 +219,7 @@ if ($jenis_surat == "SKA") {
                                     <a href="./buat_surat" class="btn btn-warning">Kembali</a>
                                 </div>
                             </form>
-                          
+
                         </div>
                         <!-- /.card-body -->
                     </div>

@@ -80,7 +80,7 @@ if ($j_mutasi == 'masuk') {
                                     <div class="form-group">
                                         <label for="tgl_lahir">Tanggal Lahir</label>
                                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal Lahir" data-target="#reservationdate" name="tgl_lahir" id="tgl_lahir" data-date-format="YYYY-MM-DD" required/>
+                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal Lahir" data-target="#reservationdate" name="tgl_lahir" id="tgl_lahir" data-date-format="YYYY-MM-DD" required />
                                             <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
@@ -121,8 +121,11 @@ if ($j_mutasi == 'masuk') {
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="w_negara">Warga negara</label>
-                                        <input type="text" class="form-control isian" placeholder="Kewarganegaraan anda" name="w_negara" id="w_negara" required>
+                                        <label for="w_negara">Warga Negara</label>
+                                        <select class="form-control" aria-label="Default select example" name="w_negara" required>
+                                            <option selected>Indonesia</option>
+                                            <option value="1">WNA</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="pendidikan">Pendidikan</label>
@@ -158,7 +161,7 @@ if ($j_mutasi == 'masuk') {
                                     <div class="form-group">
                                         <label for="tanggal">Tanggal</label>
                                         <div class="input-group date" id="reservationdatemutasi" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal lahir / pindah" data-target="#reservationdatemutasi" name="tanggal" id="tanggal" data-date-format="YYYY-MM-DD" required/>
+                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal lahir / pindah" data-target="#reservationdatemutasi" name="tanggal" id="tanggal" data-date-format="YYYY-MM-DD" required />
                                             <div class="input-group-append" data-target="#reservationdatemutasi" data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
@@ -184,7 +187,7 @@ if ($j_mutasi == 'masuk') {
         </div><!-- /.container-fluid -->
     </div>
 <?php
-} else if($j_mutasi == 'keluar') {
+} else if ($j_mutasi == 'keluar') {
 ?>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -192,12 +195,12 @@ if ($j_mutasi == 'masuk') {
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Mutasi Tambah</h1>
+                        <h1 class="m-0">Mutasi Keluar</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="./home">Home</a></li>
-                            <li class="breadcrumb-item active">Mutasi Tambah</li>
+                            <li class="breadcrumb-item active">Mutasi Keluar</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -229,8 +232,22 @@ if ($j_mutasi == 'masuk') {
                             <div class="card-body">
                                 <form action="models/simpan_mutasi.php" method="post">
                                     <div class="form-group">
-                                        <label for="id_warga">No. KTP</label>
-                                        <input type="text" class="form-control isian" placeholder="Masukkan no ktp anda" name="id_warga" id="id_warga" required>
+                                        <label for="id_warga">No KTP</label>
+                                        <select class="form-select form-control isian" aria-label="Default select example" name="id_warga" id="id_warga" required>
+                                            <?php
+                                            $ktp = mysqli_query($conn, "SELECT * FROM warga WHERE status='1'");
+                                            if (mysqli_num_rows($ktp) > 0) {
+                                                while ($item = mysqli_fetch_array($ktp)) {
+                                            ?>
+
+                                                    <option value="<?php echo $item['no_ktp'] ?>" <?php echo ($item['no_ktp']) ? 'selected' : ''; ?>>
+                                                        <?php echo $item['no_ktp'] ?> - <?php echo $item['nama'] ?> </option>
+                                                <?php }
+                                            } else {
+                                                ?>
+                                                <option value="" selected>Data KTP Belum Tersedia</option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
@@ -258,7 +275,7 @@ if ($j_mutasi == 'masuk') {
                                     <div class="form-group">
                                         <label for="tgl_lahir">Tanggal Lahir</label>
                                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal Lahir" data-target="#reservationdate" name="tgl_lahir" id="tgl_lahir" data-date-format="YYYY-MM-DD" required/>
+                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal Lahir" data-target="#reservationdate" name="tgl_lahir" id="tgl_lahir" data-date-format="YYYY-MM-DD" required />
                                             <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
@@ -299,8 +316,11 @@ if ($j_mutasi == 'masuk') {
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="w_negara">Warga negara</label>
-                                        <input type="text" class="form-control isian" placeholder="Kewarganegaraan anda" name="w_negara" id="w_negara" required>
+                                        <label for="w_negara">Warga Negara</label>
+                                        <select class="form-control" aria-label="Default select example" name="w_negara" required>
+                                            <option selected>Indonesia</option>
+                                            <option value="1">WNA</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="pendidikan">Pendidikan</label>
@@ -336,7 +356,7 @@ if ($j_mutasi == 'masuk') {
                                     <div class="form-group">
                                         <label for="tanggal">Tanggal</label>
                                         <div class="input-group date" id="reservationdatemutasi" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal wafat / pindah" data-target="#reservationdatemutasi" name="tanggal" id="tanggal" data-date-format="YYYY-MM-DD" required/>
+                                            <input type="text" class="form-control datetimepicker-input" placeholder="Tanggal wafat / pindah" data-target="#reservationdatemutasi" name="tanggal" id="tanggal" data-date-format="YYYY-MM-DD" required />
                                             <div class="input-group-append" data-target="#reservationdatemutasi" data-toggle="datetimepicker">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>

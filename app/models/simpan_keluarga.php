@@ -17,6 +17,7 @@ if($hasil >= 1) {
 $status = 0;
 $data = $_REQUEST['data'];
 $kepala_klg = $_REQUEST['kepala_keluarga'];
+$hubungan = $_POST['hubungan'];
 $nilai = array();
 $nama_kolom = array();
 for ($i = 0; $i < count($data); $i++) {
@@ -24,32 +25,56 @@ for ($i = 0; $i < count($data); $i++) {
 	foreach ($data_ar as $id => $nil) {
 		if ($id == 'value') {
 			array_push($nilai, $data_ar[$id]);
-		} else
+		} else 
 			array_push($nama_kolom, $data_ar[$id]);
 	}
 }
-// buat inputan untuk tabel keluarga ( datanya sebanyak 7 item ) 
+
 $input_keluarga = $kolom_keluarga = array();
 for ($i = 0; $i < 6; $i++) {
 	array_push($input_keluarga, $nilai[$i]);
 	array_push($kolom_keluarga, $nama_kolom[$i]);
 }
-// tambahkan field kepala keluarga untuk tabel keluarga
+
 array_push($kolom_keluarga, "kepala_keluarga");
 array_push($input_keluarga, $kepala_klg);
-// buat inputan untuk tabel det_keluarga
-$input_detail = "";
-for ($i = 6; $i < count($nilai); $i++) {
-	$input_detail .= "('" . $nilai[0] . "','" . $nilai[$i] . "'),";
+
+$groupedInputs = [];
+foreach ($data as $input) {
+    $name = $input['name'];
+    $value = $input['value'];
+
+    if (!isset($groupedInputs[$name])) {
+        $groupedInputs[$name] = [];
+    }
+
+    $groupedInputs[$name][] = $value;
 }
-$input_detail = substr($input_detail, 0, strlen($input_detail) - 1);
+
+$input_detail = "";
+$kepalaKeluarga = $groupedInputs['kepala_keluarga'];
+$hubunganValues = $groupedInputs['hubungan'];
+
+$panjang_hubungan = count($hubunganValues);
+$panjang_nilai = count($kepalaKeluarga);
+
+for ($i = 0; $i < $panjang_nilai; $i++) {
+    if ($i < $panjang_hubungan) {
+        $input_detail .= "('" . $nilai[0] . "','" . $kepalaKeluarga[$i] . "','" . $hubunganValues[$i] . "'),";
+    } else {
+        echo "gagal";
+        break;
+    }
+}
+
+$input_detail = rtrim($input_detail, ',');
 
 $nilai_input_keluarga = buatStringNilai($input_keluarga);
 $kolomnya = buatStringKolom($kolom_keluarga);
 $sql = "insert into keluarga (" . $kolomnya . ") values (" . $nilai_input_keluarga . ")";
 $sql_exe = mysqli_query($conn, $sql);
 if ($sql_exe) {
-	$sql_det = "insert into det_keluarga values " . $input_detail;
+	$sql_det = "insert into det_keluarga (id_keluarga, no_ktp, hubungan) values " . $input_detail;
 	$sql_det_exe = mysqli_query($conn, $sql_det);
 	if ($sql_det_exe) {
 		$status = 1;

@@ -44,8 +44,8 @@ $row = mysqli_fetch_assoc($query);
                                         <dt class="col-sm-3">Alamat</dt>
                                         <dd class="col-sm-9"><?= $row['alamat'] ?></dd>
 
-                                        <dt class="col-sm-3">Ekonomi</dt>
-                                        <dd class="col-sm-9"><?= $row['ekonomi'] ?></dd>
+                                        <dt class="col-sm-3">Pekerjaan</dt>
+                                        <dd class="col-sm-9"><?= $row['pekerjaan'] ?></dd>
                                     </dl>
                                     <hr>
                                     <label for="">Anggota Keluarga</label>
@@ -61,12 +61,13 @@ $row = mysqli_fetch_assoc($query);
                                                     <th>Tanggal Lahir</th>
                                                     <th>Jenis Kelamin</th>
                                                     <th>Status Nikah</th>
+                                                    <th>Hubungan</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
                                                 $no = 1;
-                                                $det_keluarga = mysqli_query($conn, "SELECT no_ktp,nama,agama,t_lahir,tgl_lahir,j_kel,s_nikah FROM v_detail_warga WHERE id_keluarga='$id' ");
+                                                $det_keluarga = mysqli_query($conn, "SELECT no_ktp,nama,agama,t_lahir,tgl_lahir,j_kel,s_nikah, hubungan FROM v_detail_warga WHERE id_keluarga='$id' ");
                                                 ?>
                                                 <?php foreach ($det_keluarga as $row) : ?>
                                                     <tr>
@@ -78,6 +79,7 @@ $row = mysqli_fetch_assoc($query);
                                                         <td><?= $row['tgl_lahir'] ?></td>
                                                         <td><?= $row['j_kel'] ?></td>
                                                         <td><?= $row['s_nikah'] ?></td>
+                                                        <td><?= $row['hubungan'] ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

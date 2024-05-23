@@ -9,7 +9,8 @@ $tmp_surat = mysqli_query($conn, $sql_nomer_surat);
 $jml = mysqli_fetch_row($tmp_surat);
 $nomer_terakhir = $awal_nomer_surat[$jenis_surat] + ($jml[0] + 1);
 $tahun = date("Y");
-$nomer_surat = $j_surat[$jenis_surat] . "/" . $nomer_terakhir . "/" . $desa["kode"] . "/" . $tahun;
+$bulan = date("m");
+$nomer_surat = $j_surat[$jenis_surat] . "/" . $nomer_terakhir . "/" . 'ds.ciakar' . "/" . $bulan . "/" .$tahun;
 ?>
 
 <div class="content-wrapper">

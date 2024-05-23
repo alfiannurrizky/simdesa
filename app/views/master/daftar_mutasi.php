@@ -81,6 +81,9 @@ include("../../../include/koneksi.php");
                                                     <a href="./index.php?page=detail_mutasi&id=<?php echo $rows['id_warga'] ?>" type="button" class="btn btn-outline-success btn-sm">
                                                         Detail
                                                     </a>
+                                                    <a href="./index.php?page=edit_mutasi_view&idmutasi=<?php echo $rows['id_mutasi'] ?>" type="button" class="btn btn-outline-primary btn-sm">
+                                                        Edit
+                                                    </a>
                                                     <button onclick="hapusDataMutasi('models/proses_hapus.php?id_mutasi=<?php echo $rows['id_mutasi'] ?>')" type="button" class="btn btn-outline-danger btn-sm">Hapus</button>
                                                 </td>
                                             </tr>

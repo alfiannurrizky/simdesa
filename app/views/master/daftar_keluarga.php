@@ -46,14 +46,14 @@
                 <table id="t_keluarga" class="table table-hover">
                   <thead>
                     <tr>
-                      <th>No.</th>
-                      <th>ID KELUARGA</th>
+                      <th>NO.</th>
+                      <th>NO KK</th>
                       <th>KEPALA KELUARGA</th>
                       <th>ALAMAT</th>
                       <th>DUSUN</th>
                       <th>RT</th>
                       <th>RW</th>
-                      <th>EKONOMI</th>
+                      <th>PEKERJAAN</th>
                       <th class='notexport'>AKSI</th>
                     </tr>
                   </thead>
@@ -71,16 +71,104 @@
                         <td><?= $rows['dusun'] ?></td>
                         <td><?= $rows['rt'] ?></td>
                         <td><?= $rows['rw'] ?></td>
-                        <td><?= $rows['ekonomi'] ?></td>
+                        <td><?= $rows['pekerjaan'] ?></td>
                         <td>
                           <div class="btn-group">
                             <a href="./detail_keluarga&id=<?php echo $rows['id_keluarga'] ?>" type="button" class="btn btn-outline-success btn-sm m-1">
                               Detail
                             </a>
+                            <button type="button" class="btn btn-outline-primary btn-sm m-1" data-toggle="modal" data-target="#modal-edit<?php echo $rows["id_keluarga"] ?>">
+                              Edit
+                            </button>
                             <button onclick="hapusDataKeluarga('models/proses_hapus.php?id_keluarga=<?php echo $rows['id_keluarga'] ?>')" type="button" class="btn btn-outline-danger btn-sm m-1">Hapus</button>
                           </div>
                         </td>
                       </tr>
+
+                      <div class="modal fade" id="modal-edit<?php echo $rows["id_keluarga"] ?>">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Edit Data Keluarga</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="card card-primary">
+                                <div class="card-header">
+                                  <h3 class="card-title">Keluarga</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form action="models/edit_keluarga.php" method="post">
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <label for="no_kk">No. KK</label>
+                                      <input type="text" class="form-control isian" id="id_keluarga" placeholder="No. KK" name="id_keluarga" value="<?php echo $rows["id_keluarga"] ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="kepala_keluarga">Kepala Keluarga</label>
+                                      <input type="text" class="form-control isian" id="kepala_keluarga" placeholder="Kepala Keluarga" name="kepala_keluarga" value="<?php echo $rows["kepala_keluarga"] ?>">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="alamat">Alamat</label>
+                                      <input type="text" class="form-control isian" id="alamat" placeholder="Alamat" name="alamat" value="<?php echo $rows["alamat"] ?>">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="dusun">Dusun</label>
+                                      <select name="dusun" id="dusun" class="form-control isian">
+                                        <?php
+                                        for ($i = 0; $i < count($dusun); $i++) {
+                                          $value = ($i == 0) ? "" : $dusun[$i];
+                                          $selected = ($rows['dusun'] == $value) ? "selected" : "";
+                                          echo "<option value='" . htmlspecialchars($value) . "' " . $selected . ">" . htmlspecialchars($dusun[$i]) . "</option>";
+                                        }
+                                        ?>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="rt">RT</label>
+                                      <select name="rt" id="rt" class="form-control isian" >
+                                        <?php
+                                        for ($i = 0; $i < count($rt); $i++) {
+                                          $value = ($i == 0) ? "" : $rt[$i];
+                                          $selected = ($rows['rt'] == $value) ? "selected" : "";
+                                          echo "<option value='" . htmlspecialchars($value) . "' " . $selected . ">" . htmlspecialchars($rt[$i]) . "</option>";
+                                        }
+                                        ?>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="rw">RW</label>
+                                      <select name="rw" id="rw" class="form-control isian">
+                                      <?php
+                                        for ($i = 0; $i < count($rw); $i++) {
+                                          $value = ($i == 0) ? "" : $rw[$i];
+                                          $selected = ($rows['rw'] == $value) ? "selected" : "";
+                                          echo "<option value='" . htmlspecialchars($value) . "' " . $selected . ">" . htmlspecialchars($rw[$i]) . "</option>";
+                                        }
+                                        ?>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="pekerjaan">Pekerjaan</label>
+                                      <input type="text" class="form-control isian" placeholder="Pekerjaan" name="pekerjaan" value="<?php echo $rows["pekerjaan"] ?>" required>
+                                    </div>
+                                  </div>
+                                  <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary isian" name="submit">Edit</button>
+                                  </div>
+                                </form>
+                              </div>
+                              <!-- /.card -->
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+
                     <?php endforeach; ?>
                   </tbody>
                 </table>
@@ -159,19 +247,8 @@
                               </select>
                             </div>
                             <div class="form-group">
-                              <label for="ekonomi">Kondisi Ekonomi</label>
-                              <select name="ekonomi" id="ekonomi" class="form-control isian" required>
-                                <?php
-                                for ($i = 0; $i < count($ekonomi); $i++) {
-                                  if ($i == 0) {
-                                    $value = "";
-                                  } else {
-                                    $value = $ekonomi[$i];
-                                  }
-                                  echo "<option value=" . $value . ">" . $ekonomi[$i] . "</option>";
-                                }
-                                ?>
-                              </select>
+                              <label for="pekerjaan">Pekerjaan</label>
+                              <input type="text" class="form-control isian" placeholder="Pekerjaan" name="pekerjaan" required>
                             </div>
                             <div class="form-group">
                               <label class="small">Tambahkan Anggota keluarga</label> <br>

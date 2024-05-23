@@ -57,12 +57,14 @@ include("../../../include/koneksi.php");
                       <th>AGAMA</th>
                       <th>T_LAHIR</th>
                       <th>TGL_LAHIR</th>
+                      <th>UMUR</th>
                       <th>J_KEL</th>
                       <th>GOL_DARAH</th>
                       <th>W_NEGARA</th>
                       <th>PENDIDIKAN</th>
                       <th>PEKERJAAN</th>
                       <th>S_NIKAH</th>
+                      <th>ALAMAT</th>
                       <th class='notexport'>AKSI</th>
                     </tr>
                   </thead>
@@ -79,23 +81,28 @@ include("../../../include/koneksi.php");
                         <td><?= $rows['agama'] ?></td>
                         <td><?= $rows['t_lahir'] ?></td>
                         <td><?= $rows['tgl_lahir'] ?></td>
+                        <td><?= $rows['umur'] ?></td>
                         <td><?= $rows['j_kel'] ?></td>
                         <td><?= $rows['gol_darah'] ?></td>
                         <td><?= $rows['w_negara'] ?></td>
                         <td><?= $rows['pendidikan'] ?></td>
                         <td><?= $rows['pekerjaan'] ?></td>
                         <td><?= $rows['s_nikah'] ?></td>
+                        <td><?= $rows['alamat'] ?></td>
                         <td>
                           <div class="btn-group">
-                            <button type="button" class="btn btn-outline-success btn-sm m-1" data-toggle="modal" data-target="#modal-edit<?php echo $rows["no_ktp"] ?>">
+                            <button type="button" class="btn btn-outline-success btn-sm m-1" data-toggle="modal" data-target="#modal-detail<?php echo $rows["no_ktp"] ?>">
                               Detail
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-sm m-1" data-toggle="modal" data-target="#modal-edit<?php echo $rows["no_ktp"] ?>">
+                              Edit
                             </button>
                             <button type="button" class="btn btn-outline-danger btn-sm m-1" onclick="hapusDataPenduduk('models/proses_hapus.php?id_penduduk=<?php echo $rows['no_ktp']; ?>')">Hapus</button>
                           </div>
                         </td>
                       </tr>
 
-                      <div class="modal fade" id="modal-edit<?php echo $rows["no_ktp"] ?>">
+                      <div class="modal fade" id="modal-detail<?php echo $rows["no_ktp"] ?>">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -158,6 +165,94 @@ include("../../../include/koneksi.php");
                                     <div class="form-group">
                                       <label for="s_nikah">Status Nikah</label>
                                       <input type="text" name="s_nikah" value="<?php echo $rows["s_nikah"] ?>" class="form-control" placeholder="Status Nikah" id="s_nikah" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="alamat">Alamat</label>
+                                      <input type="text" name="alamat" value="<?php echo $rows["alamat"] ?>" class="form-control" placeholder="Alamat" id="alamat" readonly>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+
+
+                      <div class="modal fade" id="modal-edit<?php echo $rows["no_ktp"] ?>">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h3>Edit Data</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="card card-primary">
+                                <div class="card-header">
+                                  <h3 class="card-title">Edit Data Penduduk</h3>
+                                </div>
+                                <!-- form start -->
+                                <form action="models/edit_penduduk.php" method="post">
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <label for="ktp">No. KTP</label>
+                                      <input type="text" class="form-control" name="no_ktp" value="<?php echo $rows["no_ktp"] ?>" placeholder="No KTP" id="ktp" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="nama">Nama</label>
+                                      <input type="text" class="form-control" name="nama" value="<?php echo $rows["nama"] ?>" placeholder="Nama" id="nama">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="agama">Agama</label>
+                                      <input name="agama" class="form-control" id="agama" value="<?php echo $rows['agama'] ?>"></input>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="t_lahir">Tempat Lahir</label>
+                                      <input type="text" name="t_lahir" value="<?php echo $rows["t_lahir"] ?>" class="form-control" placeholder="Alamat" id="t_lahir">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="tgl_lahir">Tanggal Lahir</label>
+                                      <input type="text" name="tgl_lahir" value="<?php echo $rows["tgl_lahir"] ?>" class="form-control" placeholder="Tanggal Lahir" id="tgl_lahir">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="jk">Jenis Kelamin</label>
+                                      <select name="j_kel" class="form-control" id="jk">
+                                        <option value="L" <?php echo ($rows['j_kel'] == 'L') ? 'selected' : ''; ?>>L</option>
+                                        <option value="P" <?php echo ($rows['j_kel'] == 'P') ? 'selected' : ''; ?>>P</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="goldar">Golongan Darah</label>
+                                      <input type="text" name="gol_darah" value="<?php echo $rows["gol_darah"] ?>" class="form-control" placeholder="Golongan Darah" id="goldar">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="w_negara">Warga Negara</label>
+                                      <input type="text" name="w_negara" value="<?php echo $rows["w_negara"] ?>" class="form-control" placeholder="Warga Negara" id="w_negara">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="pend">Pendidikan</label>
+                                      <input type="text" name="pendidikan" value="<?php echo $rows["pendidikan"] ?>" class="form-control" placeholder="Pendidikan" id="pend">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="pekerjaan">Pekerjaan</label>
+                                      <input type="text" name="pekerjaan" value="<?php echo $rows["pekerjaan"] ?>" class="form-control" placeholder="Pekerjaan" id="pekerjaan">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="s_nikah">Status Nikah</label>
+                                      <input type="text" name="s_nikah" value="<?php echo $rows["s_nikah"] ?>" class="form-control" placeholder="Status Nikah" id="s_nikah">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="alamat">Alamat</label>
+                                      <input type="text" name="alamat" value="<?php echo $rows["alamat"] ?>" class="form-control" placeholder="Alamat" id="alamat">
+                                    </div>
+                                    <div>
+                                      <button type="submit" name="submit" class="btn btn-warning">
+                                        Edit
+                                      </button>
                                     </div>
                                   </div>
                                 </form>
@@ -264,7 +359,10 @@ include("../../../include/koneksi.php");
                             </div>
                             <div class="form-group">
                               <label for="w_negara">Warga Negara</label>
-                              <input type="text" class="form-control" placeholder="Warga Negara" name="w_negara" required>
+                              <select class="form-control" aria-label="Default select example" name="w_negara" required>
+                                <option selected>Indonesia</option>
+                                <option value="1">WNA</option>
+                              </select>
                             </div>
                             <div class="form-group">
                               <label for="pendidikan">Pendidikan</label>
@@ -288,6 +386,10 @@ include("../../../include/koneksi.php");
                                 }
                                 ?>
                               </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="alamat">Alamat</label>
+                              <input type="text" class="form-control" placeholder="Alamat" name="alamat" required>
                             </div>
                           </div>
                           <div class="card-footer">

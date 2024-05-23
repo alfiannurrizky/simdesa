@@ -24,6 +24,8 @@ if ($row['jenis_surat'] == "SM") {
     $bag_tengah_ket = "<div><div id='ket_tengah' style=font-weight:bolder; margin-bottom: 5px;>TELAH MENINGGAL DUNIA pada :</div></div>";
 } else if($row['jenis_surat'] == "SL") {
     $bag_tengah_ket = "<div id='ket_tengah' style=font-weight:bolder; margin-bottom: 5px;> Telah lahir seorang anak : <span></span></div>";
+} else if($row['jenis_surat'] == "STM") {
+    $bag_ket = "Adalah benar nama tersebut di atas warga Desa Ciakar Kecamatan Panongan Kabupaten Tangerang secara terang dan jelas tinggal di alamat tersebut di atas, dan yang bersangkutan saat ini tidak mempunyai usaha/pekerjaan dan termasuk golongan keluarga Ekonomi lemah/<b>TIDAK MAMPU.</b><br><br>";
 }
 
 if ($row['jenis_surat']  == "SK") {
@@ -33,6 +35,8 @@ if ($row['jenis_surat']  == "SK") {
 }
 
 $isi_surat = json_decode($row['isi_surat'], true);
+$tanda_tangan = json_decode($row['tanda_tangan'], true);
+
 
 $label_mapping = array(
     'nama'              => 'Nama Warga',
@@ -50,12 +54,12 @@ $label_mapping = array(
     'ket'               => 'Keterangan',
     'pindah_ke'         => 'Pindah Ke',
     'tgl_pindah'        => 'Tanggal Pindah',
-    'jum_pengikut '     => 'Jumlah Pengikut',
-    'nama_pengikut '    => 'Nama Pengikut',
-    'j_kel_pengikut'    => 'Jenis Kelamin',
-    'umur_pengikut'     => 'Umur Pengikut',
-    'hub_pengikut'      => 'Hubungan Pengikut',
-    'status_pengikut'   => 'Status Pengikut',
+    'jum_pengikut'     => 'Jumlah Pengikut',
+    // 'nama_pengikut '    => 'Nama Pengikut',
+    // 'j_kel_pengikut'    => 'Jenis Kelamin',
+    // 'umur_pengikut'     => 'Umur Pengikut',
+    // 'hub_pengikut'      => 'Hubungan Pengikut',
+    // 'status_pengikut'   => 'Status Pengikut',
     'n_bayi'            => 'Nama Bayi',
     'h_lahir'           => 'Hari Lahir',
     'di'                => 'Tempat Lahir',
@@ -75,13 +79,13 @@ $html = '
     #surat_tampil {
         width: 100%;
         overflow: auto;
-        padding: 10px; /* Adjust padding as needed */
+        padding: 10px;
         box-sizing: border-box;
         margin: 0 auto;
     }
     
     #kepala_surat {
-        width: 100%;
+        width: calc(100% - 120px);
         margin: 0 auto;
         text-align: center;
         padding: 10px;
@@ -89,7 +93,9 @@ $html = '
     }
     
     #logo_surat {
-        display: none;
+        display: block;
+        float: left;
+        margin-right: 10px; 
     }
     
     .garis {
@@ -148,10 +154,11 @@ $html = '
 </head>
 <body>
 <div id="surat_tampil">
-<div id="kepala_surat">
+<div id="kepala_surat"><img src="'.$gambarBase64.'" width="100px" height="100px" id="logo_surat" valign="baseline"/>
 <strong>PEMERINTAHAN KABUPATEN ' . strtoupper($desa['kabupaten']) . '<br/>
 KECAMATAN ' . strtoupper($desa['kecamatan']) . '<br/>
 DESA ' . strtoupper($desa['nama']) . '<br/></strong>
+<p><b>Jl. Raya Cipari No. 41. Telp. (021)....Kode Pos 15711</b></p>
 
 </div>
 <div class="garis"></div>
@@ -210,6 +217,7 @@ $html .= '</div>';
 
 $html .= '<div id="par_penutup">
 <span class="masuk_alinea"></span>
+'.$bag_ket.'
 Demikian Surat Keterangan ini diberikan, untuk 
 dapat digunakan sebagaimana mestinya.
 </div>
@@ -221,8 +229,8 @@ dapat digunakan sebagaimana mestinya.
 </div>
 
 <div class="tanda_tangan" style="float:right">
-	<div>Duduksampeyan, ' . date("d-m-Y") . '</div>
-	<div class="kosong" id="pejabat">' . $desa["tt_kades"] . '</div>
+	<div>Ciakar, ' . date("d-m-Y") . '</div>
+	<div class="kosong" id="pejabat">' . $desa['tt_kades'] . '</div>
 	<div id="nama_pejabat">' . $desa["kades"] . '</span></div>
 </div>
 ' . $mengetahui . '

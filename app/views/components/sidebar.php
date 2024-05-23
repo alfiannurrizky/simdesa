@@ -31,19 +31,19 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="daftar_penduduk" class="nav-link <?= ($activePage == 'index.php?page=daftar_penduduk') ? 'active': ''; ?>">
+            <a href="daftar_penduduk" class="nav-link <?= ($activePage == 'daftar_penduduk') ? 'active': ''; ?>">
               <i class="fas fa-users"></i>
               <p>Daftar Penduduk</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="daftar_keluarga" class="nav-link <?= ($activePage == 'index.php?page=daftar_keluarga') ? 'active': ''; ?>">
+            <a href="daftar_keluarga" class="nav-link <?= ($activePage == 'daftar_keluarga') ? 'active': ''; ?>">
               <i class="fas fa-users"></i>
               <p>Daftar Keluarga</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="daftar_mutasi" class="nav-link <?= ($activePage == 'index.php?page=daftar_mutasi') ? 'active': ''; ?>">
+            <a href="daftar_mutasi" class="nav-link <?= ($activePage == 'daftar_mutasi') ? 'active': ''; ?>">
               <i class="fas fa-exchange-alt"></i>
               <p>Mutasi</p>
             </a>
@@ -60,13 +60,13 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="daftar_surat" class="nav-link <?= ($activePage == 'index.php?page=daftar_surat') ? 'active': ''; ?>">
+            <a href="daftar_surat" class="nav-link <?= ($activePage == 'daftar_surat') ? 'active': ''; ?>">
               <i class="fas fa-address-card"></i>
               <p>Daftar Surat</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="buat_surat" class="nav-link <?= ($activePage == 'index.php?page=buat_surat') ? 'active': ''; ?>">
+            <a href="buat_surat" class="nav-link <?= ($activePage == 'buat_surat') ? 'active': ''; ?>">
               <i class="fas fa-address-card"></i>
               <p>Buat Surat</p>
             </a>
@@ -83,7 +83,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="ganti_password" class="nav-link <?= ($activePage == 'index.php?page=ganti_password') ? 'active': ''; ?>">
+            <a href="ganti_password" class="nav-link <?= ($activePage == 'ganti_password') ? 'active': ''; ?>">
               <i class="fas fa-unlock"></i>
               <p>Ganti Password</p>
             </a>

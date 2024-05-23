@@ -27,13 +27,17 @@ switch ($_GET["page"]) {
     case "daftar_mutasi":
         include "master/daftar_mutasi.php";
         break;
-    
+
     case "mutasi":
         include "master/mutasi.php";
         break;
 
     case "detail_mutasi":
         include "master/detail_mutasi.php";
+        break;
+
+    case "edit_mutasi_view":
+        include "master/edit_mutasi_view.php";
         break;
 
     case "buat_surat":
@@ -52,8 +56,8 @@ switch ($_GET["page"]) {
         include "master/ganti_password.php";
         break;
 
-    default :
-        if(empty($_GET['page'])) {
+    default:
+        if (empty($_GET['page'])) {
             echo '<script>window.location="./error_page/404.php "</script>';
             break;
         } else {

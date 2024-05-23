@@ -81,10 +81,10 @@
                                 </div>
                                 <div class="col mb-4">
                                     <div class="card">
-                                        <a href="index.php?page=surat&kode_surat=SK">
+                                        <a href="index.php?page=surat&kode_surat=STM&nama=Mampu">
                                             <img src="../img/contoh-surat.png" class="card-img-top" height="300">
                                             <div class="card-body">
-                                                <p class="card-title">Surat Keterangan Lainnya</p>
+                                                <p class="card-title">Surat Keterangan Tidak Mampu</p>
                                             </div>
                                         </a>
                                     </div>
